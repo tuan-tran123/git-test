@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Media } from 'reactstrap';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
 
 class StaffList extends Component {
@@ -16,40 +15,32 @@ class StaffList extends Component {
             const staffList = this.props.staffs.map((staff) => {
                 //GET EVERY STAFF FROM STAFFSLIST
                 return (
-                    <div className="container">
-                        <div key={staff.id} className="row">
-                            <Media tag="li">
-                                <Media left middle>
-                                    <Media object src={staff.image} alt={staff.name} />
-
-                                </Media>
-                                <Media body className="ml-5">
-                                    <Media heading>{staff.name}</Media>
-                                    
-                                </Media>
-                            </Media>
-
-                        </div>
-                        
-                        <div className="row">
-                            <p>Bấm vào tên nhân viên để xem thông tin</p>
-                        </div>
-
+                    <div key={staff.id} class="col-12 col-md-5 col-lg-4 mt-2" >
+                                <Card>
+                                    <CardBody>
+                                        <CardTitle>{staff.id+1}. {staff.name}</CardTitle>
+                                    </CardBody>
+                                </Card>
                     </div>
+                       
+                    
                 )
 
             })
 
         return (
             <div className='container'>
-                    <div className='row'>
-                    <Media list>
-                        {staffList}
-                    </Media>
-
-                    </div>
-
+                <div className='row'>
+                    {staffList}
                 </div>
+                <div className='row'>
+                    <div class="col-12 col-md-5 col-lg-4 mt-3">
+                        <p>Bấm vào tên nhân viên để xem thông tin</p>
+                    </div>
+                    
+                </div>
+
+            </div>
         )
     }
 

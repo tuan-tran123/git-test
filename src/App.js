@@ -19,7 +19,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div>
         <Navbar dark color="primary">
             <div className='container'>
               <NavbarBrand href="/">Ứng dụng quản lý nhân sự v1.0</NavbarBrand>
