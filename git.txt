@@ -1,0 +1,9 @@
+git init
+git switch -c branch
+git pull link
+npm install
+npm start
+
+---------
+bootstrap
+---------
