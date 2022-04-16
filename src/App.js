@@ -3,6 +3,8 @@ import { Navbar, NavbarBrand } from "reactstrap";
 import StaffList from './StaffList/StaffListComponent';
 import './App.css';
 import { STAFFS } from './shared/staffs';
+
+
 class App extends Component {
 
     constructor(props) {
