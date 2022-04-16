@@ -7,7 +7,7 @@ class StaffList extends Component {
         super(props);
 
         this.state = {
-                selectStaff: null
+            selectStaff: null,
             }
         }
     
@@ -16,6 +16,7 @@ class StaffList extends Component {
         this.setState({ selectStaff: staff })
     }
 
+   
     // Render information when click on staff Card
     renderStaff(staff) {
         if (staff != null) {
@@ -32,7 +33,6 @@ class StaffList extends Component {
                             <CardText>Số ngày đã làm thêm: {staff.overTime}</CardText>
                         </CardBody>
                     </Card>
-
                 
 
                ) 
@@ -49,9 +49,9 @@ class StaffList extends Component {
                 //GET EVERY STAFF FROM STAFFSLIST
                 // EXECUTE A FUNCTION WHEN CLICK ON CARD OF STAFF
                 return (
-                    <div key={staff.id} className="col-12 col-md-5 col-lg-4 mt-2" > 
+                    <div key={staff.id} className="col-12 col-md-5 col-lg-4 mt-2 " > 
                         <Card onClick={() => this.onStaffSlected(staff) }> 
-                            <CardBody> 
+                            <CardBody className="hoverstaff">
                                 <CardTitle>{staff.id+1}. {staff.name}</CardTitle>
                             </CardBody>
                         </Card> 
@@ -67,6 +67,7 @@ class StaffList extends Component {
                 <div className='row'>
                     {staffList}
                 </div>
+
                 <div className='row'>
                     <div className="col-12 col-md-5 col-lg-4 mt-3">
                         <h6>Bấm vào tên nhân viên để xem thông tin</h6>
