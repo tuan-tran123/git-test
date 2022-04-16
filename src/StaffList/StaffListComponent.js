@@ -16,7 +16,7 @@ class StaffList extends Component {
         this.setState({ selectStaff: staff })
     }
 
-     
+   
     // Render information when click on staff Card
     renderStaff(staff) {
         if (staff != null) {
@@ -86,6 +86,5 @@ class StaffList extends Component {
     }
    
 }
-
 
 export default StaffList;
