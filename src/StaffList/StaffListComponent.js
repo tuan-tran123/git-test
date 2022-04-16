@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
-import dateFormat, { masks } from "dateformat";
+import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
+import dateFormat from "dateformat";
 
 class StaffList extends Component {
     constructor(props) {
@@ -16,7 +16,7 @@ class StaffList extends Component {
         this.setState({ selectStaff: staff })
     }
 
-   
+     
     // Render information when click on staff Card
     renderStaff(staff) {
         if (staff != null) {
@@ -69,14 +69,14 @@ class StaffList extends Component {
                 </div>
 
                 <div className='row'>
-                    <div className="col-12 col-md-5 col-lg-4 mt-3">
+                    <div className="col-12 col-md-5 col-lg-4 mt-2">
                         <h6>Bấm vào tên nhân viên để xem thông tin</h6>
                     </div>
                     
                 </div>
                 
                 <div className='row'>
-                    <div className="col-12 col-md-5 col-lg-4 mt-3">
+                    <div className="col-12 col-md-5 col-lg-4 mt-2">
                         {this.renderStaff(this.state.selectStaff)}      
                     </div>
                 </div>
