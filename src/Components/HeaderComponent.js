@@ -35,17 +35,17 @@ class Header extends Component {
                             <Nav navbar>
                                 <NavItem>
                                     <NavLink className='nav-link' to='/nhanvien'>
-                                        <span className="fa fa-home fa-lg"></span>Nhân Viên
+                                        <span className="fa fa-id-badge fa-lg"></span>Nhân Viên
                                     </NavLink>
                                 </NavItem>
                                 <NavItem>
                                     <NavLink className='nav-link' to='/phongban'>
-                                        <span className="fa fa-info fa-lg"></span>Phòng Ban
+                                        <span className="fa fa-university fa-lg"></span>Phòng Ban
                                     </NavLink>
                                 </NavItem>
                                 <NavItem>
                                     <NavLink className='nav-link' to='/bangluong'>
-                                        <span className="fa fa-list fa-lg"></span>Bảng Lương
+                                        <span className="fa fa-money fa-lg"></span>Bảng Lương
                                     </NavLink>
                                 </NavItem>
                                 
