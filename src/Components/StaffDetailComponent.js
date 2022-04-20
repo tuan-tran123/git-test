@@ -11,8 +11,8 @@ function RenderStaff({ staff }) {
         <div className='container'>
         <div className='row'>
                 <div className='col-3 col-md-5 m-1'>
-                    <Card>
-                    <CardImg width="100%" src={staff.image} />
+                    <Card className='img-fluid'>
+                    <CardImg width="100%" src={staff.image} alt={staff.name} />
                     </Card>
                 </div>
             <div className='col-9 col-md-5 m-1' >

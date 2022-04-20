@@ -1,11 +1,11 @@
 import React from 'react';
-import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
+import { Card, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 
 function RenderDepartment({department}) {
     return (
-        <Card className="m-3">
+        <Card className="m-3 bg-success">
             <CardBody className="hoverstaff">
                 <CardTitle>{department.name}</CardTitle>
                 <CardText>Số lượng nhân viên: {department.numberOfStaff}</CardText>
@@ -28,7 +28,12 @@ function Department(props) {
 
     return (
         <div className='container'>
-           
+           <div className='row'>
+                <Breadcrumb>
+                    <BreadcrumbItem><Link to='/nhanvien'>Nhân Viên</Link></BreadcrumbItem>
+                    <BreadcrumbItem active>Phòng Ban</BreadcrumbItem>
+                </Breadcrumb>
+            </div>
             <div className='row'>
                     {departments}
             </div>
