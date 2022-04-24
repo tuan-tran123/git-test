@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron } from "reactstrap";
+import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem } from "reactstrap";
 import { NavLink } from "react-router-dom";
 
 
@@ -13,7 +13,6 @@ class Header extends Component {
         }
         this.toggleNav = this.toggleNav.bind(this);
     }
-
 
     toggleNav() {   {/*Để đưa method này vào JSX bên dưới onClick cần phải bind nó vào constructor*/}
         this.setState({
