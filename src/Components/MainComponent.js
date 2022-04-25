@@ -20,6 +20,9 @@ class Main extends Component {
         }
     }
 
+  onAddStaff(newStaff) {
+    this.setState({ staffs: [...this.state.staffs, newStaff] });
+  }
     render() {
 
         const StaffWithId = ({match }) => {
@@ -30,14 +33,12 @@ class Main extends Component {
         )
     }
 
-
-
       return (
           <div>
             <Header />
               
             <Switch>
-                    <Route exact path='/nhanvien' component={() => <StaffList staffs={this.state.staffs} />} />
+                    <Route exact path='/nhanvien' component={() => <StaffList staffs={this.state.staffs} addStaff={ (newStaff) => this.onAddStaff(newStaff)} />} />
                     <Route path='/nhanvien/:staffId' component={StaffWithId} />
                     <Route exact path='/phongban' component={() => <Department departments={this.state.departments} />} />
                     <Route exact path='/bangluong' component={() => <SalarySheet staffs={this.state.staffs} /> } />

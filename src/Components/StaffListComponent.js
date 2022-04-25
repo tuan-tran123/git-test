@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardBody, CardSubtitle, Button, Col, Modal, ModalBody, Form, FormGroup, Input, Label, ModalHeader } from 'reactstrap';
+import { Card, CardImg, CardBody, CardSubtitle, Button, Col, Modal, ModalBody, Form, FormGroup, Input, Label, ModalHeader, FormFeedback } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 
@@ -31,12 +31,19 @@ class StaffList extends Component {
             salaryScale:'',
             startDate:'',
             annualLeave:'',
-            overTime:''
+            overTime: '',
+            touched: {
+                name: false,
+                doB: false,
+                startDate:false,
+                
+            }
 
         }
         this.toggleModal = this.toggleModal.bind(this)
         this.handleAddStaff = this.handleAddStaff.bind(this)
-        this.handleSubmitStaff =this.handleSubmitStaff.bind(this)
+        this.handleSubmitStaff = this.handleSubmitStaff.bind(this)
+        this.handleBlur = this.handleBlur.bind(this)
     }
 
 
@@ -56,33 +63,79 @@ class StaffList extends Component {
         })
     }
 
-    handleSubmitStaff(event) {
+    handleSubmitStaff(props) {
         this.toggleModal();
-        console.log('Thong tin ' + JSON.stringify(this.state))
-        alert('Thong tin ' + JSON.stringify(this.state))
-        event.preventDefault()
+        
+        const newStaff = {
+            name:this.state.name,
+            doB:this.state.doB,
+            salaryScale: this.state.salaryScale,
+            startDate:this.state.startDate,
+            department: this.state.department,
+            annualLeave: this.state.annualLeave,
+            overTime: this.state.overTime,
+            salary: this.state.salary,
+            image: '/assets/images/alberto.png',
+        }
+        this.props.addStaff(newStaff);
     }  
 
-    render(){
+    handleBlur = (field) => (evt) => {
+        this.setState({
+            touched: { ...this.state.touched, [field]: true }
+        });
+    }
+
+    validate(name, doB, startDate) {
+        const errors = {
+            name: '',
+            doB: '',
+            startDate:''
+        };
+        
+        if (this.state.touched.name && name.length < 2)
+            errors.name = 'Yêu cầu nhiều hơn 2 ký tự';
+        else if (this.state.touched.name && name.length > 30)
+            errors.name = 'Yêu cầu ít hơn 30 ký tự';
+        
+        if (this.state.touched.doB && doB.length < 1)
+            errors.doB = 'Yêu cầu nhập';
+                
+        if (this.state.touched.startDate && startDate.length < 1)
+            errors.startDate = 'Yêu cầu nhập';
+        
+        return errors;
+    }
+
+
+
+    render() {
+        const errors = this.validate(this.state.name, this.state.doB, this.state.startDate);
         const staffList = this.props.staffs.map((staff) => {
-        return (
-            <div key={staff.id} className="col-12 col-md-5 col-lg-2 mt-2 " >
-                <RenderStaff staff={staff} />            
+            console.log(<staffList staff={staff} />)
+            return (
+                <div key={staff.id} className="col-12 col-md-5 col-lg-2 mt-2 " >
+                <RenderStaff staff={staff} />  
+                
             </div>
         
         )
 
-    });
-
+        });
+       
+        
     return (
         <div className='container'>
             <div className='row'>
-                <div className='col-12 mt-2'>
+                <div className='col-4 mt-2'>
                     <h3>Nhân Viên</h3>
                     
                 </div>
+                <div className='col-2 mt-2'>
+                    <Button outline onClick={this.toggleModal}><span className="fa fa-plus fa-lg"></span></Button>
+                </div>
                 <div className='col-6 mt-2'>
-                    <Button outline onClick={this.toggleModal}><span className="fa fa-plus fa-lg">Thêm Nhân Viên</span></Button>
+                    <Button outline onClick={this.toggleModal}><span className="fa fa-plus fa-lg"></span></Button>
                 </div>
                 
             </div>
@@ -95,31 +148,43 @@ class StaffList extends Component {
                             <FormGroup row>
                                 <Label htmlFor='name'md={4}>Tên</Label>
                                 <Col md={8}>
-                                    <Input type='text' id='name' name='name' innerRef={(input) => this.name = input}
+                                    <Input type='text' id='name' name='name' 
                                         value={this.state.name}
-                                        onChange={this.handleAddStaff}/>
+                                        valid={errors.name === ''}
+                                        invalid={errors.name !== ''}
+                                        onBlur={this.handleBlur('name')} 
+                                        onChange={this.handleAddStaff} />
+                                    <FormFeedback>{errors.name}</FormFeedback>
                                 </Col>                                
                             </FormGroup >
                             <FormGroup row>
                                 <Label md={4}htmlFor="doB">Ngày sinh</Label>
                                  <Col md={8}>
-                                    <Input type='date' id='doB' name='doB' innerRef={(input) => this.doB = input}
+                                    <Input type='date' id='doB' name='doB' 
                                         value={this.state.doB}
-                                    onChange={this.handleAddStaff}/>
+                                        valid={errors.doB === ''}
+                                        invalid={errors.doB !== ''}
+                                        onBlur={this.handleBlur('doB')}
+                                        onChange={this.handleAddStaff} />
+                                    <FormFeedback>{errors.doB}</FormFeedback>
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
                                 <Label md={4}htmlFor="startDate">Ngày vào công ty</Label>
                                  <Col md={8}>
-                                    <Input type='date' id='startDate' name='startDate' innerRef={(input) => this.startDate = input}
+                                    <Input type='date' id='startDate' name='startDate' 
                                         value={this.state.startDate}
-                                    onChange={this.handleAddStaff}/>
+                                        valid={errors.startDate === ''}
+                                        invalid={errors.startDate !== ''}
+                                        onBlur={this.handleBlur('startDate')}
+                                        onChange={this.handleAddStaff} />
+                                    <FormFeedback>{errors.startDate}</FormFeedback>
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
                                 <Label md={4}htmlFor="department">Phòng ban</Label>
                                  <Col md={8}>
-                                    <Input type='select' id='department' name='department' innerRef={(input) => this.department = input}
+                                    <Input type='select' id='department' name='department' 
                                         default='Sales'
                                         value={this.state.department}
                                         onChange={this.handleAddStaff}
@@ -135,7 +200,7 @@ class StaffList extends Component {
                             <FormGroup row>
                                 <Label md={4} htmlFor="salaryScale">Hệ số lương</Label>
                                  <Col md={8}>
-                                    <Input type='number' id='salaryScale' name='salaryScale' innerRef={(input) => this.salaryScale = input}
+                                    <Input type='number' id='salaryScale' name='salaryScale' 
                                         value={this.state.salaryScale}
                                         onChange={this.handleAddStaff}
                                     />
@@ -144,7 +209,7 @@ class StaffList extends Component {
                             <FormGroup row>
                                 <Label md={4} htmlFor="annualLeave">Số ngày nghỉ còn lại</Label>
                                  <Col md={8}>
-                                    <Input type='number' id='annualLeave' name='annualLeave' innerRef={(input) => this.annualLeave = input}
+                                    <Input type='number' id='annualLeave' name='annualLeave' 
                                         value={this.state.annualLeave}
                                         onChange={this.handleAddStaff}
                                     />
@@ -153,7 +218,7 @@ class StaffList extends Component {
                             <FormGroup row>
                                 <Label md={4} htmlFor="overTime">Số ngày làm thêm</Label>
                                  <Col md={8}>
-                                    <Input type='number' id='overTime' name='overTime' innerRef={(input) => this.overTime = input}
+                                    <Input type='number' id='overTime' name='overTime' 
                                         value={this.state.overTime}
                                         onChange={this.handleAddStaff}
                                     />
@@ -179,9 +244,7 @@ class StaffList extends Component {
         </div>
     )
 
-
     }
-    
 
 }   
 
