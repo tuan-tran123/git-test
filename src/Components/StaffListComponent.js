@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 
 
 
+
+
 function RenderStaff({staff}) {
     return (
         <Card>
@@ -64,11 +66,12 @@ class StaffList extends Component {
         })
     }
 
-    handleSubmitStaff(props) {
+    handleSubmitStaff(event) {
         this.toggleModal();
         
         const newStaff = {
-            name:this.state.name,
+            id: this.props.staffs.length,
+            name: this.state.name,
             doB:this.state.doB,
             salaryScale: this.state.salaryScale,
             startDate:this.state.startDate,
@@ -79,6 +82,8 @@ class StaffList extends Component {
             image: '/assets/images/alberto.png',
         }
         this.props.addStaff(newStaff);
+        event.preventDefault();
+        console.log(this.props.staffs.length)
     }  
 
     handleBlur = (field) => (evt) => {
@@ -108,12 +113,15 @@ class StaffList extends Component {
         return errors;
     }
 
- handleSearch(event) {
-     const searchName = event.target.searchName.value;
-     this.setState({
-        name: searchName        
-     });
+    handleSearch(event) {
+        
+        const searchName = this.searchName.value;
         event.preventDefault();
+        alert('Thong tin: ' + this.searchName.value)
+        this.setState({
+            name: searchName        
+     });
+        
     }
 
     render() {
@@ -121,10 +129,9 @@ class StaffList extends Component {
 
         const staffList = this.props.staffs.filter((staff) => {
 
-            if (this.state.name === '')
+            if (staff.name.toLowerCase().includes(this.state.name.toLowerCase()))
                 return staff;
-            else if (staff.name.toLowerCase().includes(this.state.name.toLowerCase()))
-                return staff;
+            
             
             
         }).map((staff) => {
@@ -160,7 +167,7 @@ class StaffList extends Component {
                     <Form onSubmit={this.handleSearch}>
                         <FormGroup row>
                             <Col md={6} >
-                                 <Input  type='text' id='searchName' name='searchName' innerRef={(input) => this.name = input}></Input>
+                                 <Input  type='text' id='searchName' name='searchName' innerRef={(input)=> this.searchName = input}></Input>
                             </Col>
                                 
                             <Col md={6}>
@@ -178,11 +185,7 @@ class StaffList extends Component {
             
             <hr />
 
-            
-                
-            
-
-            
+              
             <div className='row'>
                 <Modal isOpen ={this.state.isModalOpen} toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}>Thêm nhân viên</ModalHeader>
@@ -232,11 +235,11 @@ class StaffList extends Component {
                                         value={this.state.department}
                                         onChange={this.handleAddStaff}
                                     >
-                                        <option>Sales</option>
-                                        <option>HR</option>
-                                        <option>Marketing</option>
-                                        <option>Finance</option>
-                                        <option>IT</option>
+                                        <option value='Dept01'>Sales</option>
+                                        <option value='Dept02' >HR</option>
+                                        <option value='Dept03'>Marketing</option>
+                                        <option value='Dept04'>IT</option>
+                                        <option value='Dept05'>Finance</option>
                                         </Input>
                                 </Col>
                             </FormGroup>
