@@ -26,6 +26,7 @@ class StaffList extends Component {
         super(props)
 
         this.state = {
+            searchName: '',
             isModalOpen: false,
             name:'',
             doB: '',
@@ -117,11 +118,10 @@ class StaffList extends Component {
         
         const searchName = this.searchName.value;
         event.preventDefault();
-        alert('Thong tin: ' + this.searchName.value)
         this.setState({
-            name: searchName        
+            searchName: searchName
      });
-        
+
     }
 
     render() {
@@ -129,7 +129,7 @@ class StaffList extends Component {
 
         const staffList = this.props.staffs.filter((staff) => {
 
-            if (staff.name.toLowerCase().includes(this.state.name.toLowerCase()))
+            if (staff.name.toLowerCase().includes(this.state.searchName.toLowerCase()))
                 return staff;
             
             
