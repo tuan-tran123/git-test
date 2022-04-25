@@ -44,6 +44,7 @@ class StaffList extends Component {
         this.handleAddStaff = this.handleAddStaff.bind(this)
         this.handleSubmitStaff = this.handleSubmitStaff.bind(this)
         this.handleBlur = this.handleBlur.bind(this)
+        this.handleSearch = this.handleSearch.bind(this)
     }
 
 
@@ -107,18 +108,32 @@ class StaffList extends Component {
         return errors;
     }
 
-
+ handleSearch(event) {
+     const searchName = event.target.searchName.value;
+     this.setState({
+        name: searchName        
+     });
+        event.preventDefault();
+    }
 
     render() {
         const errors = this.validate(this.state.name, this.state.doB, this.state.startDate);
-        const staffList = this.props.staffs.map((staff) => {
+
+        const staffList = this.props.staffs.filter((staff) => {
+
+            if (this.state.name === '')
+                return staff;
+            else if (staff.name.toLowerCase().includes(this.state.name.toLowerCase()))
+                return staff;
+            
+            
+        }).map((staff) => {
             console.log(<staffList staff={staff} />)
             return (
-                <div key={staff.id} className="col-12 col-md-5 col-lg-2 mt-2 " >
+                <div key={staff.id} className="col-6 col-md-4 col-lg-2 mt-3 mb-3" >
                 <RenderStaff staff={staff} />  
                 
             </div>
-        
         )
 
         });
@@ -127,19 +142,47 @@ class StaffList extends Component {
     return (
         <div className='container'>
             <div className='row'>
-                <div className='col-4 mt-2'>
-                    <h3>Nhân Viên</h3>
+                <div className='col-12 col-md-6 mt-3'>
+                    <div className='row'>
+                        <div className='col-10 col-md-10'>
+                            <h3>Nhân Viên</h3>                        
+                        </div>
+                     
+                        <div className='col-2 '>
+                            <Button outline onClick={this.toggleModal}><span className="fa fa-plus fa-lg"></span></Button>
+                        </div>                     
+                    </div>
                     
                 </div>
-                <div className='col-2 mt-2'>
-                    <Button outline onClick={this.toggleModal}><span className="fa fa-plus fa-lg"></span></Button>
+                                  
+                <div className='col-12 col-md-6 mt-3'>
+                    
+                    <Form onSubmit={this.handleSearch}>
+                        <FormGroup row>
+                            <Col md={6} >
+                                 <Input  type='text' id='searchName' name='searchName' innerRef={(input) => this.name = input}></Input>
+                            </Col>
+                                
+                            <Col md={6}>
+                                 <Button  type='submit' value='submit' className='bg-primary '>Tìm nhân viên</Button>
+                                 </Col>
+                               
+                        
+                        </FormGroup>                                 
+                    </Form>
+
                 </div>
-                <div className='col-6 mt-2'>
-                    <Button outline onClick={this.toggleModal}><span className="fa fa-plus fa-lg"></span></Button>
-                </div>
-                
+     
             </div>
+            
+            
             <hr />
+
+            
+                
+            
+
+            
             <div className='row'>
                 <Modal isOpen ={this.state.isModalOpen} toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}>Thêm nhân viên</ModalHeader>
