@@ -235,11 +235,11 @@ class StaffList extends Component {
                                         value={this.state.department}
                                         onChange={this.handleAddStaff}
                                     >
-                                        <option value='Dept01'>Sales</option>
-                                        <option value='Dept02'>HR</option>
-                                        <option value='Dept03'>Marketing</option>
-                                        <option value='Dept04'>IT</option>
-                                        <option value='Dept05'>Finance</option>
+                                        <option >Sales</option>
+                                        <option >HR</option>
+                                        <option >Marketing</option>
+                                        <option >IT</option>
+                                        <option >Finance</option>
                                         </Input>
                                 </Col>
                             </FormGroup>
