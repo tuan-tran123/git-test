@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Card, CardImg, CardBody, CardSubtitle, Button, Col, Modal, ModalBody, Form, FormGroup, Input, Label, ModalHeader, FormFeedback } from 'reactstrap';
 import { Link } from 'react-router-dom';
-
+import { DEPARTMENTS, STAFFS } from '../shared/staffs';
 
 
 
@@ -69,7 +69,7 @@ class StaffList extends Component {
 
     handleSubmitStaff(event) {
         this.toggleModal();
-        
+       
         const newStaff = {
             id: this.props.staffs.length,
             name: this.state.name,
@@ -236,7 +236,7 @@ class StaffList extends Component {
                                         onChange={this.handleAddStaff}
                                     >
                                         <option value='Dept01'>Sales</option>
-                                        <option value='Dept02' >HR</option>
+                                        <option value='Dept02'>HR</option>
                                         <option value='Dept03'>Marketing</option>
                                         <option value='Dept04'>IT</option>
                                         <option value='Dept05'>Finance</option>
