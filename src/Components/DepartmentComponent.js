@@ -3,14 +3,18 @@ import { Card, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 
 import { Link } from 'react-router-dom';
 
 
+
 function RenderDepartment({department}) {
     return (
-        <Card className="m-3 bg-success">
-            <CardBody className="hoverstaff">
-                <CardTitle>{department.name}</CardTitle>
-                <CardText>Số lượng nhân viên: {department.numberOfStaff}</CardText>
-            </CardBody>
-        </Card>
+        <Link className="text-decoration-none" to={`/departments/${department.id}`} >
+            <Card className="m-3 bg-light">
+                <CardBody className="hoverstaff">
+                    <CardTitle>{department.name}</CardTitle>
+                    <CardText>Số lượng nhân viên: {department.numberOfStaff}</CardText>
+                </CardBody>
+                </Card>
+        </Link>
+        
     )     
 }
 
@@ -30,7 +34,7 @@ function Department(props) {
         <div className='container'>
            <div className='row'>
                 <Breadcrumb>
-                    <BreadcrumbItem><Link to='/nhanvien'>Nhân Viên</Link></BreadcrumbItem>
+                    <BreadcrumbItem><Link to='/staffs'>Nhân Viên</Link></BreadcrumbItem>
                     <BreadcrumbItem active>Phòng Ban</BreadcrumbItem>
                 </Breadcrumb>
             </div>
